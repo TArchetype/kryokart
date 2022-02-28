@@ -1,0 +1,1 @@
+Her skal det legges til filer tilknyttet hardware, som arduino og lignende
