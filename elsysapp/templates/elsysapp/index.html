@@ -3,7 +3,7 @@
   <head>
     
     <meta charset="utf-8" />
-    <title>Demo: Make a heatmap with Mapbox GL JS</title>
+    <title>KryoKart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -27,59 +27,11 @@
     <div id="map"></div>
     <script>
 
-      // raw - link til nettesiden der dataen ligger 
+      // raw - link til nettsiden der dataen ligger 
       //pip install django-jquery
-      const raw = {
-                "app_id": "elsysgk2020",
-                "dev_id": "1111",
-                "hardware_serial": "0004A30B001E7ADF",
-                "port": 1,
-                "counter": 207,
-                "payload_raw": "DxOMAFw=",
-                "payload_fields": {
-                    "count": 140,
-                    "temperature": 38.59,
-                    "value": 0.92
-                },
-                "metadata": {
-                    "time": "2020-06-26T09:05:39.908947145Z",
-                    "frequency": 868.1,
-                    "modulation": "LORA",
-                    "data_rate": "SF7BW125",
-                    "coding_rate": "4/5",
-                    "gateways": [
-                        {
-                            "gtw_id": "trt-sluppen-loragw01",
-                            "timestamp": 309905187,
-                            "time": "2020-06-26T10:17:18Z",
-                            "channel": 0,
-                            "rssi": -119,
-                            "snr": -2.25,
-                            "rf_chain": 0,
-                            "latitude": 63.397568,
-                            "longitude": 10.400948,
-                            "altitude": 21
-                        },
-                        {
-                            "gtw_id": "trt-samf-loragw01",
-                            "timestamp": 2056965899,
-                            "time": "2020-06-26T10:21:04Z",
-                            "channel": 0,
-                            "rssi": -101,
-                            "snr": 7.5,
-                            "rf_chain": 0,
-                            "latitude": 63.422485,
-                            "longitude": 10.395755,
-                            "altitude": 20
-                        }
-                    ]
-                },
-                "downlink_url": "https://integrations.thethingsnetwork.org/ttn-eu/api/v2/down/elsysgk2020/things_uno1?key=ttn-account-v2.Jwah4AReKlIpDS2WCA4DN8h6KwADOGYpxWXsn-cuYSM"
-            }
+      const raw = 'https://webhook.site/1a1b22b6-d1b6-4f5e-a543-cb2aecd9b17a'
       //flyttes inn i getJSON
-      const features = []
-      const data = {"type": "FeatureCollection", "features": features}
-      const raw_meta_data = raw["metadata"]["gateways"]
+      
 
       
       for (let i = 0; i < raw_meta_data.length; i++){
@@ -90,7 +42,11 @@
         features.push(geodata)
       }
       //endre url
-      $.getJSON('http://time.jsontest.com', function(raw) {
+      $.getJSON('https://webhook.site/1a1b22b6-d1b6-4f5e-a543-cb2aecd9b17a', function(raw) {
+        
+        const features = []
+        const data = {"type": "FeatureCollection", "features": features}
+        const raw_meta_data = raw["metadata"]["gateways"]
         console.log(raw)
       });
 
@@ -98,7 +54,7 @@
         'pk.eyJ1IjoiYWhhZ2EiLCJhIjoiY2wwYXRybDV6MHFwcjNrcXVnd3gxZ2N1eiJ9.4FMht-rB8_acYhtzmhB6rw';
       const map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/dark-v10',
+        style: 'mapbox://styles/ahaga/cl06fh07t000y14szcsal2l57',
         center: [10.422906, 63.431827],
         zoom: 11
       });
@@ -137,15 +93,15 @@
                 ['linear'],
                 ['heatmap-density'],
                 0,
-                'rgba(236,222,239,0)',
+                'rgba(255,255,0,0)',
                 0.2,
-                'rgb(208,209,230)',
+                'rgb(255,175,0)',
                 0.4,
-                'rgb(166,189,219)',
+                'rgb(255,112,0)',
                 0.6,
-                'rgb(103,169,207)',
+                'rgb(255,65,0)',
                 0.8,
-                'rgb(28,144,153)'
+                'rgb(255,0,0)'
               ],
               // increase radius as zoom increases
               'heatmap-radius': {
@@ -172,7 +128,7 @@
             'id': 'trees-point',
             'type': 'circle',
             'source': 'trees',
-            'minzoom': 14,
+            'minzoom': 14.5,
             'paint': {
               // increase the radius of the circle as the zoom level and dbh value increases
               'circle-radius': {
@@ -185,25 +141,13 @@
                   [{ zoom: 22, value: 62 }, 50]
                 ]
               },
-              'circle-color': {
-                'property': 'time',
-                'type': 'exponential',
-                'stops': [
-                  [0, 'rgba(0.2,0.2,0.2,0)'],
-                  [10, 'rgb(0.2,0.2,0.2)'],
-                  [20, 'rgb(0.2,0.2,0.2)'],
-                  [30, 'rgb(0.2,0.2,0.2)'],
-                  [40, 'rgb(0.2,0.2,0.2)'],
-                  [50, 'rgb(0.2,0.2,0.2)'],
-                  [60, 'rgb(0.2,0.2,0.2)']
-                ]
-              },
-              'circle-stroke-color': 'white',
+              'circle-color': 'orangeRed',
+              'circle-stroke-color': 'black',
               'circle-stroke-width': 1,
               'circle-opacity': {
                 'stops': [
-                  [14, 0],
-                  [15, 1]
+                  [14.4, 0],
+                  [15.5, 1]
                 ]
               }
             }
@@ -211,14 +155,7 @@
           'waterway-label'
         );
       });
-
-      // click on tree to view dbh in a popup
-      map.on('click', 'trees-point', (event) => {
-        new mapboxgl.Popup()
-          .setLngLat(event.features[0].geometry.coordinates)
-          .setHTML(`<strong>Tid:</strong> ${event.features[0].properties.time}`)
-          .addTo(map);
-      });
+      
     </script>
   </body>
 </html>
