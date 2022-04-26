@@ -1,1 +1,28 @@
-
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Gabrielsen"
+  given-names: "Thomas"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "Thor"
+  given-names: "Mina Alexandra"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "Ekroll Glenne"
+  given-names: "Jonas"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "Serville Torvund"
+  given-names: "Arthur"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "Bot"
+  given-names: "Hew"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "Haga"
+  given-names: "Adrian"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "Chandrakumar"
+  given-names: "Abirami"
+title: "GitHub repository KryoKart: software and files"
+version: 1.0
+doi: 10.5281/zenodo.1234
+date-released: 2017-12-18
+url: ""
