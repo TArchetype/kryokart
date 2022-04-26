@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% load static %}
+    
     <meta charset="utf-8" />
     <title>KryoKart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,44 +26,62 @@
   <body>
     <div id="map"></div>
     <script>
-      
-      //var gpsData = "{% url 'posts' %}"
-      
-      
-      
-      //console.log(gpsData)
 
-      
-raw = {
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [10.412020,63.426583]
-  },
-  "properties": {
-    "name": "Dinagat Islands"
-  }
-}
+      // raw - link til nettsiden der dataen ligger 
+      //pip install django-jquery
+      const raw = 'https://webhook.site/bbac28da-115e-46fe-b250-086a26d421dc?'
+      //flyttes inn i getJSON
+      const mapData = {"type": "FeatureCollection",
+                "features": []}
 
-$.getJSON('https://webhook.site/bbac28da-115e-46fe-b250-086a26d421dc', function(raw) { 
+      var fetchData = fetch('/post/', {
+            method: "GET",
+            credentials: "same-origin",
+            headers: {
+                Accept: "application/json",
+                "X-Requested-With": "XMLHttpRequest"
+                //"X-CSRFToken": getCookie("csrftoken"),
+            },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            for(var i = 0; i < data.length; i++){
+                //console.log(data)
+                mapData.features.push(
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                            +(data[i].longtitude.replace(" ", "")), +(data[i].latitude.replace(" ", ""))
+                            ]
+                    },
+                        "properties": {}
+                    }
+                )
 
-  console.log(raw)
-  });
+            }
+                
+        })
+        .catch((err) => {
+            console.log("err in fetch", err);
+        });
+
+      //$.getJSON('https://webhook.site/bbac28da-115e-46fe-b250-086a26d421dc?', function(raw) {});
+    
       mapboxgl.accessToken =
         'pk.eyJ1IjoiYWhhZ2EiLCJhIjoiY2wwYXRybDV6MHFwcjNrcXVnd3gxZ2N1eiJ9.4FMht-rB8_acYhtzmhB6rw';
       const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/ahaga/cl06fh07t000y14szcsal2l57',
-        center: [10.422906, 63.431827],
-        zoom: 11
+        center: [10.402906, 63.421827],
+        zoom: 13.7
       });
       map.on('load', () => {
-          map.addSource('trees', {
-            'type': 'geojson',
-            'data': raw
-          });
-
-          
+        map.addSource('trees', {
+          'type': 'geojson',
+          'data': mapData
+        });
 
         map.addLayer(
           {
@@ -156,7 +174,8 @@ $.getJSON('https://webhook.site/bbac28da-115e-46fe-b250-086a26d421dc', function(
           'waterway-label'
         );
       });
-      
+
+    
     </script>
   </body>
 </html>

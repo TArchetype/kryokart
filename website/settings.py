@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-etyn@&j@aw&epk6=7zkvzhn)2ax)wm3cf1lklj%nxe@bde2$v%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "innovasjonsprosjekt.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "gruppe5.innovasjon.ed.ntnu.no"]
 
 
 # Application definition
@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+INSTALLED_APPS += (
+    'djgeojson',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

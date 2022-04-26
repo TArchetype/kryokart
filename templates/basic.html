@@ -1,1 +1,57 @@
-<h1>It works!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBud</title>
+</head>
+<body>
+    <h1>Database Test</h1>
+
+    <div> 
+        <h4>HTML</h4>
+        {% for gpsPoint in gpsPositions %}
+            <div>
+                <h5>
+                    ID: {{gpsPoint.id}}
+                    Longtitude = {{gpsPoint.position}}
+                    Latitude = {{gpsPoint.position}}
+                </h5>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div>
+        <h4>Script</h4>
+        <p id="data">data: </p>
+        <script type="text/javascript">
+            var dataNode = document.getElementById('data');
+             
+            var fetchData = fetch('/post/', {
+                method: "GET",
+                credentials: "same-origin",
+                headers: {
+                    Accept: "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                    //"X-CSRFToken": getCookie("csrftoken"),
+                },
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                for(var i = 0; i < data.length; i++){
+                    console.log(data)
+                    
+                }
+                
+            })
+            .catch((err) => {
+                console.log("err in fetch", err);
+            });
+             
+            /*var data = JSON.parse(rawdata);*/
+            
+        </script>
+    </div>
+</body>
+</html>
